@@ -93,11 +93,17 @@ def is_bounded(board, y_end, x_end, length, d_y, d_x):
                     return "SEMIOPEN"
                 elif board[y_end + 1][x_end] != " " and  board[y_end + 1][x_end] != board[y_end][x_end]:# If the sequence has a different letter to the bottom , returns closed
                     return "CLOSED"   
+                elif board[y_end + 1][x_end] == board[y_end][x_end] :
+                    return "INVALID"
             elif (board[y_end - length ][x_end] == board[y_end][x_end]):#If the letter at the top is the same , regardless of what happens at the bottom
                 return "INVALID"
             elif ( board[y_end + 1][x_end ] != " " and board[y_end + 1][x_end ] != board[y_end][x_end] ):#The sequence has a different letter at the bottom
                 if board[y_end - length][x_end] ==  " ": # if sequence is empty to the top , returns SEMIOPEN
                     return "SEMIOPEN"
+                elif board[y_end - length][x_end] != " " and board[y_end - length][x_end] != board [y_end][x_end]:
+                    return "CLOSED" 
+                elif board[y_end - length][x_end] == board [y_end][x_end]:
+                    return "INVALID" 
             elif (board[y_end + 1 ][x_end] == board[y_end][x_end]):#If the letter at the bottom is the same , regardsless of what happens at the top
                 return "INVALID"
             elif (board[y_end - length][x_end] == " " and board[y_end + 1][x_end ] == " "): #IF both sides are free , returns open
@@ -230,10 +236,7 @@ def detect_row(board, col, y_start, x_start, length, d_y, d_x):
              else  :
                  print("This is the start for y:-",start_of_column)
                  print("This is the end for y:-",end_of_column)
-                 
                  print("Looking here now for passed:-",board_array[start_of_column:end_of_column, x_start]  )
-                 print ("Why not going ")
-                 print (board_array[0:2, x_start])
                  #####Redo the bottom
                  if is_bounded(board,end_of_column -1, x_start, length, d_y, d_x) == "OPEN":
                     print ("Start of Column:-", start_of_column)
@@ -255,10 +258,14 @@ def detect_row(board, col, y_start, x_start, length, d_y, d_x):
                     print ("It is an Invalid sequence")
                     start_of_column += 1
                     end_of_column = start_of_column + length 
-                 
+                 else:
+                     print ("Why not going above")
     #elif (d_y == 1 and d_x == 1):
+                      # use this b[0:3:1].diagonal(offset=0)
+                   #  Note when b[a:b:c], when a is 1 for example, row 0 is cut off , and the first row is treted as the zeroth row
         
     #elif (d_y == 1 and d_x == -1) :
+        # use this b[0:3:1].diagonal(offset=0)
         
     return open_seq_count, semi_open_seq_count
     
@@ -449,6 +456,7 @@ def test_detect_row():
     x = 0 ; y = 4 ; d_x = 0 ; d_y = 1 ; length = 1
     put_seq_on_board(board, y, x, d_y, d_x, length, "w")
     print_board(board)
+
     x = 0 ; y = 5 ; d_x = 0 ; d_y = 1 ; length = 3
     put_seq_on_board(board, y, x, d_y, d_x, length, "b")
     print_board(board)
