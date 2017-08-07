@@ -4,7 +4,7 @@ Created on Sat Aug  5 20:16:06 2017
 
 @author: OLUSOJI
 """
-
+#######Two ways of diagonal top left to bottom right solution
 import numpy as np
 b = np.arange(64).reshape(8,8)
 
@@ -20,18 +20,34 @@ y_start = 2
 x_start = 0
 length = 2
 """
+print (b_array)
 
-y_start = 2
-x_start = 2
-length = 2
+y_start = 0
+x_start = 1
+length = 4
 
 #When you want it to end
 
 sequence_start = [y_start,x_start]
 sequence_end = [sequence_start[0] + length -1 , sequence_start[1] + length - 1]
-
+"""# Checks the last element before printing
 while (sequence_end[0] <= 7): #sequence_end[0] will have to be updated 
-    print( b_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) )
-    sequence_start[1] += 1
-    sequence_start[0] += 1
-    sequence_end = [sequence_start[0] + length -1 , sequence_start[1] + length - 1]
+    if sequence_end[0 ] == 7 or sequence_end[1] == 7:
+        print( b_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) )
+        break
+    else:
+        print( b_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) )
+        sequence_start[1] += 1
+        sequence_start[0] += 1
+        sequence_end = [sequence_start[0] + length -1 , sequence_start[1] + length - 1]
+
+"""
+#Checks the length of all diagonal pieces
+while (sequence_end[0] <= 7): #sequence_end[0] will have to be updated
+    if len(b_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] )) <length :
+        break
+    else: 
+        print( b_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) )
+        sequence_start[1] += 1
+        sequence_start[0] += 1
+        sequence_end = [sequence_start[0] + length -1 , sequence_start[1] + length - 1]
