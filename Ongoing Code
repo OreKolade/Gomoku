@@ -260,6 +260,7 @@ def detect_row(board, col, y_start, x_start, length, d_y, d_x):
                     end_of_column = start_of_column + length 
                  else:
                      print ("Why not going above")
+
     elif (d_y == 1 and d_x == 1):
         board_array = numpy.array(board)
         sequence_start = [y_start,x_start]
@@ -329,7 +330,8 @@ def detect_row(board, col, y_start, x_start, length, d_y, d_x):
                         sequence_end = [sequence_start[0] + length -1 , sequence_start[1] + length - 1]
                         
           #      print( board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) )
-                
+  
+      
 
         
     #elif (d_y == 1 and d_x == -1) :
