@@ -264,10 +264,17 @@ def detect_row(board, col, y_start, x_start, length, d_y, d_x):
         board_array = numpy.array(board)
         sequence_start = [y_start,x_start]
         sequence_end = [y_start + length -1 , x_start + length - 1]
-        while (sequence_end[0] <= 8):
-            print( board_array[0:8:1].diagonal( offset=sequence_start[1] ) )#This should work
-                      # use this b[0:3:1].diagonal(offset=0)
-                   #  Note when b[a:b:c], when a is 1 for example, row 0 is cut off , and the first row is treted as the zeroth row
+       
+        while (sequence_end[0] <= 7): #This Should work
+            if sequence_end[0] == 7 or sequence_end[1] == 7:
+                print( board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) )
+                break
+            else:
+                print( board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) )
+                sequence_start[1] += 1
+                sequence_start[0] += 1
+                sequence_end = [sequence_start[0] + length -1 , sequence_start[1] + length - 1]
+
         
     #elif (d_y == 1 and d_x == -1) :
         # use this b[0:3:1].diagonal(offset=0)
