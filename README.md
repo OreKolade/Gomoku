@@ -42,6 +42,5 @@ Functions Written by Me:-
 •    search max(board)
 •    is win(board)
 
-Hopefully , I plan tto expand the project and make a decent visual UI for the project 
-Something like this:-
+Hopefully , I plan to expand the project and make a decent visual UI for the project 
 
