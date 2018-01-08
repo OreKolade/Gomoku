@@ -245,17 +245,10 @@ def detect_row(board, col, y_start, x_start, length, d_y, d_x):
         end_of_row = start_of_row + length # No need for - 1 , as you want the number just before when slicing .Starting Variables 
         while (end_of_row <= 8 ): # It is 8 because when you are slicing the list , the second number is +1 than the last element
             if not_col in board[y_start][start_of_row : end_of_row]  or " " in board[y_start][start_of_row : end_of_row]:
-                print("Looking here now for not passed:-",board[y_start][start_of_row : end_of_row]  )
-                print ("\n")
-        
                 start_of_row += 1
                 end_of_row = start_of_row + length  
             else  : 
-                print("Looking here now for passed:-",board[y_start][start_of_row : end_of_row]  )
                 if is_bounded(board, y_start, end_of_row - 1, length, d_y, d_x) == "OPEN":
-                    print ("Start of row:-", start_of_row)
-                    print ("End of row:- ", end_of_row -1)
-                    print("It is an open sequence")
                     open_seq_count += 1
                     start_of_row += 1
                     end_of_row = start_of_row + length 
@@ -281,18 +274,11 @@ def detect_row(board, col, y_start, x_start, length, d_y, d_x):
         end_of_column = start_of_column + length # No need for - 1 , as you want the number just before when slicing .Starting Variables 
         while (end_of_column <= 8 ):
              if not_col in board_array[start_of_column:end_of_column, x_start]  or " " in board_array[start_of_column:end_of_column,x_start]:
-                print("Looking here now for not passed:-",board_array[start_of_column:end_of_column, x_start]  )
-                print ("\n")
                 start_of_column += 1
                 end_of_column = start_of_column + length 
              else  :
-                 print("This is the start for y:-",start_of_column)
-                 print("This is the end for y:-",end_of_column)
-                 print("Looking here now for passed:-",board_array[start_of_column:end_of_column, x_start]  )
                  #####Redo the bottom
                  if is_bounded(board,end_of_column -1, x_start, length, d_y, d_x) == "OPEN":
-                    print ("Start of Column:-", start_of_column)
-                    print ("End of Column:- ", end_of_column -1)
                     print("It is an open sequence")
                     open_seq_count += 1
                     start_of_column += 1
@@ -310,8 +296,7 @@ def detect_row(board, col, y_start, x_start, length, d_y, d_x):
                     print ("It is an Invalid sequence")
                     start_of_column += 1
                     end_of_column = start_of_column + length 
-                 else:
-                     print ("Why not going above")
+            
     elif (d_y == 1 and d_x == 1):
         board_array = numpy.array(board)
         sequence_start = [y_start,x_start]
@@ -320,11 +305,10 @@ def detect_row(board, col, y_start, x_start, length, d_y, d_x):
         while (sequence_end[0] <= 7 and  sequence_end[1] <= 7 ):###What of  sequence_end[1] <= 7########
             if sequence_end[0] == 7 or sequence_end[1] == 7: #Checks if it is at the edge of the board 
                 if not_col in  board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) or " " in  board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) :
-                     print("Looking here now for not passed:-", board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) )
-                     print ("\n")
+                    
                      break
                 else:
-                    print("Looking here now for passed:-",board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] )  )
+                    
                     if is_bounded(board,sequence_end[0], sequence_end[1], length, d_y, d_x) == "OPEN":
                         print("It's an Open Sequence")
                         open_seq_count += 1
@@ -341,18 +325,15 @@ def detect_row(board, col, y_start, x_start, length, d_y, d_x):
                     elif is_bounded(board,sequence_end[0],sequence_end[1], length, d_y, d_x) == "INVALID":
                         print("It's an Invalid Sequence")
                         break 
-               # print( board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) )
+               
            
             else:
                 if not_col in  board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) or " " in  board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) :
-                     print("Looking here now for not passed:-", board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) )
-                     print ("\n")
                      sequence_start[1] += 1
                      sequence_start[0] += 1
                      sequence_end = [sequence_start[0] + length -1 , sequence_start[1] + length - 1]
                      
                 else:
-                    print ("Looking here now for passed:-",board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] )  )
                     
                     if is_bounded(board,sequence_end[0], sequence_end[1], length, d_y, d_x) == "OPEN":
                         print("It's an Open Sequence")
@@ -380,10 +361,7 @@ def detect_row(board, col, y_start, x_start, length, d_y, d_x):
                         sequence_start[1] += 1
                         sequence_start[0] += 1
                         sequence_end = [sequence_start[0] + length -1 , sequence_start[1] + length - 1]
-                        
-          #   print( board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) )
-                
-
+                                
         
     elif (d_y == 1 and d_x == -1) :
     #import numpy
@@ -393,22 +371,23 @@ def detect_row(board, col, y_start, x_start, length, d_y, d_x):
         sequence_start = [y_start, (len(new_board_array[0])-1) - x_start ]
         sequence_end = [sequence_start[0] + length -1 , sequence_start[1] + length - 1]
         
-        print ("This is the normal matrixesxxx:-")
-        print_board(board_array)
+        #print ("This is the normal matrixesxxx:-")
+        #print_board(board_array)
         
         """Shows the flipped matrix
         print ("This is the Flipped matrixesxxx:-")
         print_board(new_board_array)
         """
-        
+        ##Note I am always operating in terms of the flipped matrix , unless I call is_bounded ,
+        ##then I am passing the normal positions to it.Normal is gotten by setting the x_end sequence end to (len(new_board_array[0])-1) - sequence_end[1])
+        ##As the x-axis is affected but not the y-axis
         while (sequence_end[0] <= 7 and sequence_end[1] <= 7): 
             
             if sequence_end[0] == 7 or sequence_end[1] == 7: #Checks if it is at the edge of the board 
                 if not_col in  new_board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) or " " in  new_board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) :
-                     print("Looking here now for not passed:-", new_board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) )
-                     print ("\n")
                      break
                 else:
+                    """
                     print("Looking here now for passed:-",new_board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] )  )
                     print("This is the sequence end for y-axis:-",sequence_end[0])
                     print("This is the sequence end for x-axis:-",sequence_end[1])
@@ -416,7 +395,7 @@ def detect_row(board, col, y_start, x_start, length, d_y, d_x):
                     print ("This is y_end",sequence_end[0])
                     print("This is the length:-",length)
                     print("This is the direction[y][x]:-",(d_y, d_x))
-                    
+                    """
                     if is_bounded(board,sequence_end[0], (len(new_board_array[0])-1) - sequence_end[1] , length, d_y, d_x) == "OPEN":
                         print("It's an Open Sequence")
                         open_seq_count += 1
@@ -439,8 +418,6 @@ def detect_row(board, col, y_start, x_start, length, d_y, d_x):
             else:##It not at the end of the board
                 #print (new_board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ))
                 if not_col in new_board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) or " " in  new_board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) :
-                     print("Looking here now for not passed:-", new_board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) )
-                     print ("\n")
                      sequence_start[1] += 1
                      sequence_start[0] += 1
                      sequence_end = [sequence_start[0] + length -1 , sequence_start[1] + length - 1]
@@ -478,6 +455,38 @@ def detect_row(board, col, y_start, x_start, length, d_y, d_x):
 def detect_rows(board, col, length):
     ####CHANGE ME
     open_seq_count, semi_open_seq_count = 0, 0
+    ##First  divide into different directions 
+    
+    for i in range (8): ##Analyzes the top to bottom direction
+        tuple_to_use = detect_row(board, col, 0, i , length, 1,0)
+        open_seq_count += tuple_to_use[0]
+        semi_open_seq_count += tuple_to_use[1]
+        
+    for i in range (8):  ##Analyzes the left to right direction 
+        tuple_to_use = detect_row(board, col, i, 0 , length, 0,1)
+        open_seq_count += tuple_to_use[0]
+        semi_open_seq_count += tuple_to_use[1]
+        
+    for i in range (8): ##Analyzes the top left to bottom right direction(top to right)
+        tuple_to_use = detect_row(board, col, 0, i , length, 1,1)
+        open_seq_count += tuple_to_use[0]
+        semi_open_seq_count += tuple_to_use[1]
+        
+    for i in range (1,8): ##Analyzes the top left to bottom right direction(left to bottom)
+        tuple_to_use = detect_row(board, col, i, 0 , length, 1,1)
+        open_seq_count += tuple_to_use[0]
+        semi_open_seq_count += tuple_to_use[1]
+        
+    for i in range (8): ##Analyzes the top right to bottom left direction(top to left)
+        tuple_to_use = detect_row(board, col, 0, i , length, 1,-1)
+        open_seq_count += tuple_to_use[0]
+        semi_open_seq_count += tuple_to_use[1]
+    
+    for i in range (1,8): ##Analyzes the top right to bottom left direction(right to bottom)
+        tuple_to_use = detect_row(board, col, i, 7 , length, 1,-1)
+        open_seq_count += tuple_to_use[0]
+        semi_open_seq_count += tuple_to_use[1]
+   
     return open_seq_count, semi_open_seq_count
     
 def search_max(board):
@@ -585,9 +594,9 @@ def play_gomoku(board_size): # Don't Modify
             
         
         
-        test_is_empty()
-        test_is_bounded()
-        test_detect_row()
+        #test_is_empty()
+        #test_is_bounded()
+        test_detect_rows()
         print("Your move:")
         move_y = int(input("y coord: "))
         move_x = int(input("x coord: "))
@@ -683,7 +692,7 @@ def test_detect_row():
     x = 5 ; y = 4 ; d_x = -1 ; d_y = 1 ; length = 3
     put_seq_on_board(board, y, x, d_y, d_x, length, "w")
     
-    tuple_to_use = detect_row(board, "b", 0,7,2,1,-1)
+    tuple_to_use = detect_row(board, "w", 0,6,3,1,-1)
     
     if tuple_to_use == (0,1):
         print("TEST CASE for detect_row PASSED")
@@ -694,10 +703,34 @@ def test_detect_row():
 
 def test_detect_rows():
     board = make_empty_board(8)
-    x = 5; y = 1; d_x = 0; d_y = 1; length = 3; col = 'w'
+    
+    x = 3 ; y = 1 ; d_x = -1 ; d_y = 1 ; length = 3
     put_seq_on_board(board, y, x, d_y, d_x, length, "w")
+    
+    x = 0 ; y = 4 ; d_x = -1 ; d_y = 1 ; length = 1
+    put_seq_on_board(board, y, x, d_y, d_x, length, "b")
+    
+    x = 5 ; y = 1 ; d_x = -1 ; d_y = 1 ; length = 2
+    put_seq_on_board(board, y, x, d_y, d_x, length, "b")
+    
+    x = 2 ; y = 4 ; d_x = -1 ; d_y = 1 ; length = 3
+    put_seq_on_board(board, y, x, d_y, d_x, length, "w")
+    
+    x = 7 ; y = 0 ; d_x = -1 ; d_y = 1 ; length = 2
+    put_seq_on_board(board, y, x, d_y, d_x, length, "b")
+    
+    x = 4 ; y = 3 ; d_x = -1 ; d_y = 1 ; length = 1
+    put_seq_on_board(board, y, x, d_y, d_x, length, "w")
+    
+    x = 7 ; y = 2 ; d_x = -1 ; d_y = 1 ; length = 2
+    put_seq_on_board(board, y, x, d_y, d_x, length, "b")
+    
+    x = 5 ; y = 4 ; d_x = -1 ; d_y = 1 ; length = 3
+    put_seq_on_board(board, y, x, d_y, d_x, length, "w")
+    
     print_board(board)
-    if detect_rows(board, col,length) == (1,0):
+    
+    if detect_rows(board, "w",3) == (0,3):
         print("TEST CASE for detect_rows PASSED")
     else:
         print("TEST CASE for detect_rows FAILED")
