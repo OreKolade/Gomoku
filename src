@@ -128,75 +128,109 @@ def is_bounded(board, y_end, x_end, length, d_y, d_x):
                 return ("CLOSED")
             elif (board[y_end + 1][x_end + 1]== " "):
                 return ("SEMIOPEN")
-            elif (y_end == 7 and x_end == 7 ): ########nOT nECERILLY , aLSO HAVE TO ACCOUNT FOR OTHER PLACES
+            elif ((y_end == 7) and (x_end >= 0 and x_end < 8) ): 
+                return ("CLOSED")
+            elif ((x_end == 7) and (y_end >= 0 and y_end < 8) ):
                 return ("CLOSED")
             elif (board[y_end + 1][x_end + 1]== board[y_end][x_end]):
                 return ("INVALID")
+            
         elif (((x_end < 8 and x_end >= 0 ) and (y_end == 7)) or ( (y_end < 8 and y_end >= 0) and (x_end == 7) ) ):#Just put this in, review for 1 and -1
               # ^ The Above checks if it is at the bottom edge and right edge 
             if board[y_end - length][x_end - length] != board[y_end][x_end] and board[y_end - length][x_end - length] != " " :
                  return ("CLOSED")
             elif (board[y_end - length][x_end - length]== " "):
                 return ("SEMIOPEN")
-            elif ((y_end - length + 1 == 0) and (x_end - length + 1 == 0) ):########nOT nECERILLY , aLSO HAVE TO ACCOUNT FOR OTHER PLACES
+            elif ((y_end - length + 1 == 0) and (x_end - length + 1 < 8  and x_end - length + 1 >= 0 )):#Checks if it is bounded by the top edge 
+                return ("CLOSED")
+            elif ( (x_end - length + 1 == 0) and (y_end - length + 1 < 8  and y_end - length + 1 >= 0 ) ):#Checks if it is bounded by the left edge 
                 return ("CLOSED")
             elif (board[y_end - length][x_end - length] == board[y_end][x_end] ):
                 return ("INVALID")
                 
-        elif (board[y_end-length ][x_end - length] != board[y_end][x_end] and board[y_end-length][x_end-length] != " "  ):#And board[y_end][x_end] is not empty
+        elif (board[y_end-length ][x_end - length] != board[y_end][x_end] and board[y_end-length][x_end-length] != " "  ):#And board[y_end][x_end] is not empty, different letter
             if (board[y_end + 1][x_end + 1] != board[y_end][x_end] and board[y_end + 1][x_end + 1] != " " ):
                 return ("CLOSED")
             elif (board[y_end + 1][x_end + 1]== " "):
                 return ("SEMIOPEN")
             elif (board[y_end + 1][x_end + 1] == board[y_end][x_end ]):
                 return ("INVALID")
-            elif (y_end == 7 and x_end == 7 ): ########nOT nECERILLY , aLSO HAVE TO ACCOUNT FOR OTHER PLACES
+            elif ((y_end == 7) and (x_end >= 0 and x_end < 8) ): 
                 return ("CLOSED")
+            elif ((x_end == 7) and (y_end >= 0 and y_end < 8) ):
+                return ("CLOSED")
+            
         elif ( board[y_end-length][x_end-length] == " " ):
             if (board[y_end + 1][x_end + 1] != board[y_end][x_end] and board[y_end + 1][x_end + 1] != " "):
                 return ("SEMIOPEN")
             elif (board[y_end + 1][x_end + 1]== " "):
                 return ("OPEN")
-            elif (y_end == 7 and x_end == 7 ):#Something is wrong heretoo, not only on 7,7 but on the edges
+            elif ((y_end == 7) and (x_end >= 0 and x_end < 8) ): 
+                return ("SEMIOPEN")
+            elif ((x_end == 7) and (y_end >= 0 and y_end < 8) ):
                 return ("SEMIOPEN")
             elif (board[y_end + 1][x_end + 1] == board[y_end][x_end]):
                 return ("INVALID")
         elif ( board[y_end-length][x_end-length] == board[y_end][x_end] ):
             return("INVALID")
+            
     elif(d_y == 1 and  d_x== -1):
-        if (((y_end-length + 1 < 10 and y_end-length + 1 >= 0 ) and (x_end + length - 1 == 7)) or ( (x_end + length- 1<10 and x_end + length - 1>= 0) and (y_end  == 0) ) ):
-           
+         # ^ The Above checks if it is at the top edge and right edge 
+        if (((y_end-length + 1 < 8 and y_end-length + 1 >= 0 ) and (x_end + length - 1 == 7)) or ( (x_end + length- 1 < 8 and x_end + length - 1>= 0) and (y_end  == 0) ) ):
             if (board[y_end + 1][x_end - 1] != board[y_end][x_end] and board[y_end + 1][x_end - 1] != " "):#And board[y_end][x_end] is not empty, it should have the different value
                 return ("CLOSED")
             elif (board[y_end + 1][x_end - 1]== " "):
                 return ("SEMIOPEN")
-            elif (y_end == 7 and x_end == 7 ):
+            elif ((y_end == 7) and (x_end >= 0 and x_end < 8) ):
                 return ("CLOSED")
-        elif (((x_end < 10 and x_end >= 0 ) and (y_end == 7)) or ( (y_end <10 and y_end >= 0) and (x_end  == 0) ) ):
+            elif (x_end == 0 and (y_end >= 0 and y_end < 8 )):
+                return ("CLOSED")
+            elif (board[y_end + 1][x_end - 1] == board[y_end][x_end]):
+                return ("INVALID")
+            
+        elif (((x_end < 8 and x_end >= 0 ) and (y_end == 7)) or ( (y_end <10 and y_end >= 0) and (x_end  == 0) ) ):
              # ^ The Above checks if it is at the left edge and bottom edge 
         
             if board[y_end - length][x_end + length] != board[y_end][x_end] and board[y_end - length][x_end + length] != " " :
                  return ("CLOSED")
             elif (board[y_end - length][x_end + length]== " "):
                 return ("SEMIOPEN")
-            elif ((y_end - length + 1 == 7) and (x_end + length - 1 == 7 )): #Something is wrong , not finished yet. not only on 7,7 but on the edges 
+            elif ((y_end - length + 1 == 0) and (x_end + length - 1 >= 0 and x_end + length - 1 < 8  )): #Something is wrong , not finished yet. not only on 7,7 but on the edges 
                 return ("CLOSED")
-            #########
+            elif ((x_end + length - 1 == 7) and (y_end - length + 1 >= 0 and y_end - length + 1 < 8  )):
+                return("CLOSED")
+            elif (board[y_end - length][x_end + length]== board[y_end][x_end] ):
+                return ("INVALID")
+        
         elif (board[y_end-length][x_end + length] != board[y_end][x_end] and board[y_end-length][x_end + length] != " " ):#And board[y_end][x_end] is not empty
             if (board[y_end + 1][x_end - 1] != board[y_end][x_end] and board[y_end + 1][x_end - 1]!= " "  ):
                 return ("CLOSED")
             elif (board[y_end + 1][x_end - 1]== " "):
                 return ("SEMIOPEN")
-            elif (y_end == 7 and x_end == 7 ):
+            
+            elif ((y_end == 7) and (x_end >= 0 and x_end < 8) ):
                 return ("CLOSED")
+            elif (x_end == 0 and (y_end >= 0 and y_end < 8 )):
+                return ("CLOSED")
+            
+            elif (board[y_end + 1][x_end - 1] == board[y_end][x_end] ):
+                return("INVALID")
+                
         elif ( board[y_end-length][x_end + length] == " " ):
             if (board[y_end + 1][x_end - 1] != board[y_end][x_end] and board[y_end + 1][x_end - 1] != " "):
                 return ("SEMIOPEN")
             elif (board[y_end + 1][x_end - 1]== " "):
                 return ("OPEN")
-            elif (y_end == 7 and x_end == 7 ):
+            elif ((y_end == 7) and (x_end >= 0 and x_end < 8) ):
                 return ("SEMIOPEN")
-    
+            elif (x_end == 0 and (y_end >= 0 and y_end < 8 )):
+                return ("SEMIOPEN")
+            elif(board[y_end + 1][x_end - 1]== board[y_end][x_end]):
+                return("INVALID")
+                
+        elif ( board[y_end-length][x_end + length] == board[y_end][x_end] ):
+            return ("INVALID")
+        
 def detect_row(board, col, y_start, x_start, length, d_y, d_x):
     import numpy
     open_seq_count = 0 
@@ -283,7 +317,7 @@ def detect_row(board, col, y_start, x_start, length, d_y, d_x):
         sequence_start = [y_start,x_start]
         sequence_end = [y_start + length -1 , x_start + length - 1]
        
-        while (sequence_end[0] <= 7):###What of  sequence_end[1] <= 7########
+        while (sequence_end[0] <= 7 and  sequence_end[1] <= 7 ):###What of  sequence_end[1] <= 7########
             if sequence_end[0] == 7 or sequence_end[1] == 7: #Checks if it is at the edge of the board 
                 if not_col in  board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) or " " in  board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) :
                      print("Looking here now for not passed:-", board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) )
@@ -358,6 +392,7 @@ def detect_row(board, col, y_start, x_start, length, d_y, d_x):
         new_board_array = numpy.fliplr(board_array)#flips the matrix from left to right 
         sequence_start = [y_start, (len(new_board_array[0])-1) - x_start ]
         sequence_end = [sequence_start[0] + length -1 , sequence_start[1] + length - 1]
+        
         print ("This is the normal matrixesxxx:-")
         print_board(board_array)
         
@@ -365,16 +400,23 @@ def detect_row(board, col, y_start, x_start, length, d_y, d_x):
         print ("This is the Flipped matrixesxxx:-")
         print_board(new_board_array)
         """
+        
         while (sequence_end[0] <= 7 and sequence_end[1] <= 7): 
+            
             if sequence_end[0] == 7 or sequence_end[1] == 7: #Checks if it is at the edge of the board 
                 if not_col in  new_board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) or " " in  new_board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) :
                      print("Looking here now for not passed:-", new_board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) )
                      print ("\n")
                      break
-                else:##Its on the edge , but has no empty spaces or unwanted characters
+                else:
                     print("Looking here now for passed:-",new_board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] )  )
                     print("This is the sequence end for y-axis:-",sequence_end[0])
                     print("This is the sequence end for x-axis:-",sequence_end[1])
+                    print ("This is x_end",(len(new_board_array[0])-1) - sequence_end[1])
+                    print ("This is y_end",sequence_end[0])
+                    print("This is the length:-",length)
+                    print("This is the direction[y][x]:-",(d_y, d_x))
+                    
                     if is_bounded(board,sequence_end[0], (len(new_board_array[0])-1) - sequence_end[1] , length, d_y, d_x) == "OPEN":
                         print("It's an Open Sequence")
                         open_seq_count += 1
@@ -391,10 +433,12 @@ def detect_row(board, col, y_start, x_start, length, d_y, d_x):
                     elif is_bounded(board,sequence_end[0],(len(new_board_array[0])-1) - sequence_end[1], length, d_y, d_x) == "INVALID":
                         print("It's an Invalid Sequence")
                         break 
-                   
+    
+                    
+           
             else:##It not at the end of the board
-                print (new_board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ))
-                if not_col in  new_board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) or " " in  new_board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) :
+                #print (new_board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ))
+                if not_col in new_board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) or " " in  new_board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) :
                      print("Looking here now for not passed:-", new_board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) )
                      print ("\n")
                      sequence_start[1] += 1
@@ -630,7 +674,7 @@ def test_detect_row():
     x = 7 ; y = 0 ; d_x = -1 ; d_y = 1 ; length = 2
     put_seq_on_board(board, y, x, d_y, d_x, length, "b")
     
-    x = 4 ; y = 3 ; d_x = -1 ; d_y = 1 ; length = 3
+    x = 4 ; y = 3 ; d_x = -1 ; d_y = 1 ; length = 1
     put_seq_on_board(board, y, x, d_y, d_x, length, "w")
     
     x = 7 ; y = 2 ; d_x = -1 ; d_y = 1 ; length = 2
@@ -639,9 +683,9 @@ def test_detect_row():
     x = 5 ; y = 4 ; d_x = -1 ; d_y = 1 ; length = 3
     put_seq_on_board(board, y, x, d_y, d_x, length, "w")
     
-    tuple_to_use = detect_row(board, "w", 0,7,1,1,-1)
+    tuple_to_use = detect_row(board, "b", 0,7,2,1,-1)
     
-    if tuple_to_use == (0,0):
+    if tuple_to_use == (0,1):
         print("TEST CASE for detect_row PASSED")
     else:
         print("TEST CASE for detect_row FAILED")
