@@ -40,23 +40,27 @@ def is_bounded(board, y_end, x_end, length, d_y, d_x):
     #Might have to add that [][] is full and not " "
     if  (d_y == 0  and  d_x==  1):
         if ( ((y_end >= 0) and (y_end <= 7) ) and  (x_end - length + 1) == 0 ): #The sequence is bounded by the board at the left-end
-            if( board[y_end][x_end + 1] == " "): #If the spot at the right-end is free, returns Semi-Open
+            if (x_end == 7):
+                return "CLOSED"
+            elif( board[y_end][x_end + 1] == " "): #If the spot at the right-end is free, returns Semi-Open
                 return "SEMIOPEN"
             elif ( board[y_end][x_end + 1] != " " and board[y_end][x_end + 1] != board[y_end][x_end] ): # If the Spot at the right-end has a different letter, returns Closed
                 return "CLOSED"
             elif ( board[y_end][x_end + 1] == board[y_end][x_end] ): # If the Spot at the right-end has the same letter, returns Invalid
                 return "INVALID"
-            elif (x_end == 7):
-                return "CLOSED"
+            
         elif ( ((y_end >= 0) and (y_end <= 7) ) and  (x_end ) == 7 ): # The sequence is bounded by the board at the right-end
-            if( board[y_end][x_end - length ] == " "): # If the sequence is open at the left , Returns Semiopen
+            
+            if ( (x_end - length + 1) == 0 ):
+                return "CLOSED"
+            elif( board[y_end][x_end - length ] == " "): # If the sequence is open at the left , Returns Semiopen
                 return "SEMIOPEN"
             elif ( board[y_end][x_end - length] != " " and board[y_end][x_end - length] != board[y_end][x_end] ): #If the sequence is bounded at the left by a different letter, returns closed
                 return "CLOSED"
             elif ( board[y_end][x_end - length] == board[y_end][x_end] ): #If the sequence is bounded at the left by a different letter, returns closed
                 return "INVALID"
-            elif ( (x_end - length + 1) == 0 ):
-                return "CLOSED"
+            
+            
         elif ( (x_end - length + 1) != 0 and (x_end != 7) ): # The Sequence is not bounded by the board Whatsoever 
             if ( board[y_end][x_end - length] != " " and board[y_end][x_end - length] != board[y_end][x_end] ):#The sequence has a different letter at the left
                 if board[y_end][x_end + 1] == " " :#If the sequence is open to the right returns SEMIOPEN
@@ -72,28 +76,29 @@ def is_bounded(board, y_end, x_end, length, d_y, d_x):
                 return "INVALID"
             elif (board[y_end][x_end - length] == " " and board[y_end][x_end + 1] == " "): #IF both sides are free , returns open
                 return "OPEN"
-        else:
-            print ("What the fuck did I miss in is_bounded for left-to-right")
+            
             
     elif(d_y == 1 and  d_x== 0): 
         if ( ((x_end >= 0) and (x_end <= 7) ) and  (y_end - length + 1) == 0 ): #The sequence is bounded by the board at the top
-            if( board[y_end + 1][x_end] == " "): #If the spot at the bottom is free, returns Semi-Open
+            if (y_end == 7):
+                return "CLOSED"
+            elif( board[y_end + 1][x_end] == " "): #If the spot at the bottom is free, returns Semi-Open
                 return "SEMIOPEN"
             elif ( board[y_end + 1][x_end ] != " " and board[y_end + 1][x_end] != board[y_end][x_end] ): # If the Spot at the bottom has a different letter, returns Closed
                 return "CLOSED"
-            elif (y_end == 7):
-                return "CLOSED"
             elif ( board[y_end + 1][x_end] == board[y_end][x_end]): #When the next letter below is the same, so the sequence is incomplete
                 return "INVALID"
+            
         elif ( ((x_end >= 0) and (x_end <= 7) ) and  (y_end ) == 7 ): # The sequence is bounded by the board at the bottom
-            if( board[y_end - length][x_end ] == " "): # If the sequence is open at the top, Returns Semiopen
+            if ( (y_end - length + 1) == 0 ):
+                return "CLOSED"
+            elif( board[y_end - length][x_end ] == " "): # If the sequence is open at the top, Returns Semiopen
                 return "SEMIOPEN"
             elif ( board[y_end -length][x_end ] != " " and board[y_end - length ][x_end ] != board[y_end][x_end] ): #If the sequence is bounded at the top by a different letter, returns closed
                 return "CLOSED"
-            elif ( (y_end - length + 1) == 0 ):
-                return "CLOSED"
             elif ( board[y_end - length][x_end] == board[y_end][x_end]): #When the next letter above is the same, so the sequence is incomplete
                 return "INVALID"
+            
         elif ( (y_end - length + 1) != 0 and (y_end != 7) ): # The Sequence is not bounded by the board Whatsoever 
             if ( board[y_end - length ][x_end] != " " and board[y_end - length ][x_end] != board[y_end][x_end] ):#The sequence has a different letter at the top
                 if board[y_end + 1][x_end] == " " :#If the sequence is open to the bottom returns SEMIOPEN
@@ -118,113 +123,115 @@ def is_bounded(board, y_end, x_end, length, d_y, d_x):
             elif (board[y_end + 1 ][x_end] == board[y_end][x_end] and board[y_end - length ][x_end] == board[y_end][x_end] ):#if both sides have sameletters 
                 return "INVALID"
             
-        else:
-            print ("What the fuck did I miss in is_bounded for Top-to-Bottom")
-            
     elif (d_y == 1 and  d_x == 1):
-        if (((y_end-length + 1 < 10 and y_end-length + 1 >= 0 ) and (x_end- length + 1== 0)) or ( (x_end-length+ 1<10 and x_end - length + 1>= 0) and (y_end - length +1 == 0) ) ):
+        if (((y_end-length + 1 < 8 and y_end-length + 1 >= 0 ) and (x_end- length + 1== 0)) or ( (x_end-length+ 1<8 and x_end - length + 1>= 0) and (y_end - length +1 == 0) ) ):
             # ^ The Above checks if it is at the top edge and left edge 
-            if (board[y_end + 1][x_end + 1] != board[y_end][x_end] and board[y_end + 1][x_end + 1] != " " ):#And board[y_end][x_end] is not empty, it should have the different value
+            
+            
+            if ((x_end == 7) and (y_end >= 0 and y_end < 8) ):
                 return ("CLOSED")
-            elif (board[y_end + 1][x_end + 1]== " "):
-                return ("SEMIOPEN")
             elif ((y_end == 7) and (x_end >= 0 and x_end < 8) ): 
                 return ("CLOSED")
-            elif ((x_end == 7) and (y_end >= 0 and y_end < 8) ):
+            
+            elif (board[y_end + 1][x_end + 1] != board[y_end][x_end] and board[y_end + 1][x_end + 1] != " " ):#And board[y_end][x_end] is not empty, it should have the different value
                 return ("CLOSED")
+            
+            elif (board[y_end + 1][x_end + 1]== " "):
+                return ("SEMIOPEN")
+            
             elif (board[y_end + 1][x_end + 1]== board[y_end][x_end]):
                 return ("INVALID")
             
+            
         elif (((x_end < 8 and x_end >= 0 ) and (y_end == 7)) or ( (y_end < 8 and y_end >= 0) and (x_end == 7) ) ):#Just put this in, review for 1 and -1
               # ^ The Above checks if it is at the bottom edge and right edge 
-            if board[y_end - length][x_end - length] != board[y_end][x_end] and board[y_end - length][x_end - length] != " " :
-                 return ("CLOSED")
-            elif (board[y_end - length][x_end - length]== " "):
-                return ("SEMIOPEN")
-            elif ((y_end - length + 1 == 0) and (x_end - length + 1 < 8  and x_end - length + 1 >= 0 )):#Checks if it is bounded by the top edge 
+            if ((y_end - length + 1 == 0) and (x_end - length + 1 < 8  and x_end - length + 1 >= 0 )):#Checks if it is bounded by the top edge 
                 return ("CLOSED")
             elif ( (x_end - length + 1 == 0) and (y_end - length + 1 < 8  and y_end - length + 1 >= 0 ) ):#Checks if it is bounded by the left edge 
                 return ("CLOSED")
+            elif board[y_end - length][x_end - length] != board[y_end][x_end] and board[y_end - length][x_end - length] != " " :
+                 return ("CLOSED")
+            elif (board[y_end - length][x_end - length]== " "):
+                return ("SEMIOPEN")
             elif (board[y_end - length][x_end - length] == board[y_end][x_end] ):
                 return ("INVALID")
                 
         elif (board[y_end-length ][x_end - length] != board[y_end][x_end] and board[y_end-length][x_end-length] != " "  ):#And board[y_end][x_end] is not empty, different letter
-            if (board[y_end + 1][x_end + 1] != board[y_end][x_end] and board[y_end + 1][x_end + 1] != " " ):
+            if ((y_end == 7) and (x_end >= 0 and x_end < 8) ): 
+                return ("CLOSED")
+            elif ((x_end == 7) and (y_end >= 0 and y_end < 8) ):
+                return ("CLOSED")
+            elif (board[y_end + 1][x_end + 1] != board[y_end][x_end] and board[y_end + 1][x_end + 1] != " " ):
                 return ("CLOSED")
             elif (board[y_end + 1][x_end + 1]== " "):
                 return ("SEMIOPEN")
             elif (board[y_end + 1][x_end + 1] == board[y_end][x_end ]):
                 return ("INVALID")
-            elif ((y_end == 7) and (x_end >= 0 and x_end < 8) ): 
-                return ("CLOSED")
-            elif ((x_end == 7) and (y_end >= 0 and y_end < 8) ):
-                return ("CLOSED")
             
         elif ( board[y_end-length][x_end-length] == " " ):
-            if (board[y_end + 1][x_end + 1] != board[y_end][x_end] and board[y_end + 1][x_end + 1] != " "):
+            if ((y_end == 7) and (x_end >= 0 and x_end < 8) ): 
+                return ("SEMIOPEN")
+            elif ((x_end == 7) and (y_end >= 0 and y_end < 8) ):
+                return ("SEMIOPEN")
+            elif (board[y_end + 1][x_end + 1] != board[y_end][x_end] and board[y_end + 1][x_end + 1] != " "):
                 return ("SEMIOPEN")
             elif (board[y_end + 1][x_end + 1]== " "):
                 return ("OPEN")
-            elif ((y_end == 7) and (x_end >= 0 and x_end < 8) ): 
-                return ("SEMIOPEN")
-            elif ((x_end == 7) and (y_end >= 0 and y_end < 8) ):
-                return ("SEMIOPEN")
             elif (board[y_end + 1][x_end + 1] == board[y_end][x_end]):
                 return ("INVALID")
+            
         elif ( board[y_end-length][x_end-length] == board[y_end][x_end] ):
             return("INVALID")
             
     elif(d_y == 1 and  d_x== -1):
          # ^ The Above checks if it is at the top edge and right edge 
         if (((y_end-length + 1 < 8 and y_end-length + 1 >= 0 ) and (x_end + length - 1 == 7)) or ( (x_end + length- 1 < 8 and x_end + length - 1>= 0) and (y_end  == 0) ) ):
-            if (board[y_end + 1][x_end - 1] != board[y_end][x_end] and board[y_end + 1][x_end - 1] != " "):#And board[y_end][x_end] is not empty, it should have the different value
-                return ("CLOSED")
-            elif (board[y_end + 1][x_end - 1]== " "):
-                return ("SEMIOPEN")
-            elif ((y_end == 7) and (x_end >= 0 and x_end < 8) ):
+            if ((y_end == 7) and (x_end >= 0 and x_end < 8) ):
                 return ("CLOSED")
             elif (x_end == 0 and (y_end >= 0 and y_end < 8 )):
                 return ("CLOSED")
+            elif (board[y_end + 1][x_end - 1] != board[y_end][x_end] and board[y_end + 1][x_end - 1] != " "):#And board[y_end][x_end] is not empty, it should have the different value
+                return ("CLOSED")
+            elif (board[y_end + 1][x_end - 1]== " "):
+                return ("SEMIOPEN")
+           
             elif (board[y_end + 1][x_end - 1] == board[y_end][x_end]):
                 return ("INVALID")
             
         elif (((x_end < 8 and x_end >= 0 ) and (y_end == 7)) or ( (y_end <10 and y_end >= 0) and (x_end  == 0) ) ):
              # ^ The Above checks if it is at the left edge and bottom edge 
-        
-            if board[y_end - length][x_end + length] != board[y_end][x_end] and board[y_end - length][x_end + length] != " " :
-                 return ("CLOSED")
-            elif (board[y_end - length][x_end + length]== " "):
-                return ("SEMIOPEN")
-            elif ((y_end - length + 1 == 0) and (x_end + length - 1 >= 0 and x_end + length - 1 < 8  )): #Something is wrong , not finished yet. not only on 7,7 but on the edges 
+            if ((y_end - length + 1 == 0) and (x_end + length - 1 >= 0 and x_end + length - 1 < 8  )): #Something is wrong , not finished yet. not only on 7,7 but on the edges 
                 return ("CLOSED")
             elif ((x_end + length - 1 == 7) and (y_end - length + 1 >= 0 and y_end - length + 1 < 8  )):
                 return("CLOSED")
+            elif board[y_end - length][x_end + length] != board[y_end][x_end] and board[y_end - length][x_end + length] != " " :
+                 return ("CLOSED")
+            elif (board[y_end - length][x_end + length]== " "):
+                return ("SEMIOPEN")
             elif (board[y_end - length][x_end + length]== board[y_end][x_end] ):
                 return ("INVALID")
         
         elif (board[y_end-length][x_end + length] != board[y_end][x_end] and board[y_end-length][x_end + length] != " " ):#And board[y_end][x_end] is not empty
-            if (board[y_end + 1][x_end - 1] != board[y_end][x_end] and board[y_end + 1][x_end - 1]!= " "  ):
-                return ("CLOSED")
-            elif (board[y_end + 1][x_end - 1]== " "):
-                return ("SEMIOPEN")
-            
-            elif ((y_end == 7) and (x_end >= 0 and x_end < 8) ):
+            if ((y_end == 7) and (x_end >= 0 and x_end < 8) ):
                 return ("CLOSED")
             elif (x_end == 0 and (y_end >= 0 and y_end < 8 )):
                 return ("CLOSED")
-            
+            elif (board[y_end + 1][x_end - 1] != board[y_end][x_end] and board[y_end + 1][x_end - 1]!= " "  ):
+                return ("CLOSED")
+            elif (board[y_end + 1][x_end - 1]== " "):
+                return ("SEMIOPEN")
             elif (board[y_end + 1][x_end - 1] == board[y_end][x_end] ):
                 return("INVALID")
                 
         elif ( board[y_end-length][x_end + length] == " " ):
-            if (board[y_end + 1][x_end - 1] != board[y_end][x_end] and board[y_end + 1][x_end - 1] != " "):
-                return ("SEMIOPEN")
-            elif (board[y_end + 1][x_end - 1]== " "):
-                return ("OPEN")
-            elif ((y_end == 7) and (x_end >= 0 and x_end < 8) ):
+            if ((y_end == 7) and (x_end >= 0 and x_end < 8) ):
                 return ("SEMIOPEN")
             elif (x_end == 0 and (y_end >= 0 and y_end < 8 )):
                 return ("SEMIOPEN")
+            elif (board[y_end + 1][x_end - 1] != board[y_end][x_end] and board[y_end + 1][x_end - 1] != " "):
+                return ("SEMIOPEN")
+            elif (board[y_end + 1][x_end - 1]== " "):
+                return ("OPEN")
             elif(board[y_end + 1][x_end - 1]== board[y_end][x_end]):
                 return("INVALID")
                 
@@ -253,16 +260,16 @@ def detect_row(board, col, y_start, x_start, length, d_y, d_x):
                     start_of_row += 1
                     end_of_row = start_of_row + length 
                 elif is_bounded(board, y_start, end_of_row - 1, length, d_y, d_x) == "SEMIOPEN":
-                    print("It is an semiopen sequence")
+                    #"It is an semiopen sequence"
                     semi_open_seq_count += 1
                     start_of_row += 1
                     end_of_row = start_of_row + length 
                 elif is_bounded(board, y_start, end_of_row - 1, length, d_y, d_x) == "CLOSED":
-                    print("It is an closed sequence")
+                    #"It is an closed sequence"
                     start_of_row += 1
                     end_of_row = start_of_row + length 
                 elif is_bounded(board, y_start, end_of_row - 1, length, d_y, d_x) == "INVALID": #May not need it , as we are to assume to have complete sequence
-                    print ("It is an Invalid sequence")
+                    #"It is an Invalid sequence"
                     start_of_row += 1
                     end_of_row = start_of_row + length 
             
@@ -279,21 +286,21 @@ def detect_row(board, col, y_start, x_start, length, d_y, d_x):
              else  :
                  #####Redo the bottom
                  if is_bounded(board,end_of_column -1, x_start, length, d_y, d_x) == "OPEN":
-                    print("It is an open sequence")
+                    #"It is an open sequence"
                     open_seq_count += 1
                     start_of_column += 1
                     end_of_column = start_of_column + length 
                  elif is_bounded(board, end_of_column -1, x_start, length, d_y, d_x) == "SEMIOPEN":
-                    print("It is an semiopen sequence")
+                    #"It is an semiopen sequence"
                     semi_open_seq_count += 1
                     start_of_column += 1
                     end_of_column = start_of_column + length 
                  elif is_bounded(board,end_of_column -1 , x_start, length, d_y, d_x) == "CLOSED":
-                    print("It is an closed sequence")
+                    #"It is an closed sequence"
                     start_of_column += 1
                     end_of_column = start_of_column + length 
                  elif is_bounded(board,end_of_column -1, x_start, length, d_y, d_x) == "INVALID": #May not need it , as we are to assume to have complete sequence
-                    print ("It is an Invalid sequence")
+                    #"It is an Invalid sequence"
                     start_of_column += 1
                     end_of_column = start_of_column + length 
             
@@ -301,29 +308,31 @@ def detect_row(board, col, y_start, x_start, length, d_y, d_x):
         board_array = numpy.array(board)
         sequence_start = [y_start,x_start]
         sequence_end = [y_start + length -1 , x_start + length - 1]
-       
+        #print_board(board)
+        
         while (sequence_end[0] <= 7 and  sequence_end[1] <= 7 ):###What of  sequence_end[1] <= 7########
+           
             if sequence_end[0] == 7 or sequence_end[1] == 7: #Checks if it is at the edge of the board 
-                if not_col in  board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) or " " in  board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) :
-                    
+                if not_col in  board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) or " " in  board_array[(sequence_start[0]): (sequence_end[0] + 1) :1].diagonal( offset=sequence_start[1] ) :          
                      break
                 else:
-                    
+                    print_board(board)
+                    print(sequence_end[0], sequence_end[1])
                     if is_bounded(board,sequence_end[0], sequence_end[1], length, d_y, d_x) == "OPEN":
-                        print("It's an Open Sequence")
+                        #"It's an Open Sequence"
                         open_seq_count += 1
                         break
                     elif is_bounded(board,sequence_end[0], sequence_end[1], length, d_y, d_x) == "SEMIOPEN":
-                        print ("It's a Seemiopen Sequence ")
+                        #"It's a Seemiopen Sequence "
                         semi_open_seq_count += 1
                         break 
                         
                     elif is_bounded(board, sequence_end[0], sequence_end[1], length, d_y, d_x) == "CLOSED":
-                        print ("It's a Closed Sequence")
+                        #"It's a Closed Sequence"
                         break
                         
                     elif is_bounded(board,sequence_end[0],sequence_end[1], length, d_y, d_x) == "INVALID":
-                        print("It's an Invalid Sequence")
+                        #"It's an Invalid Sequence"
                         break 
                
            
@@ -336,28 +345,28 @@ def detect_row(board, col, y_start, x_start, length, d_y, d_x):
                 else:
                     
                     if is_bounded(board,sequence_end[0], sequence_end[1], length, d_y, d_x) == "OPEN":
-                        print("It's an Open Sequence")
+                        #"It's an Open Sequence"
                         open_seq_count += 1
                         sequence_start[1] += 1
                         sequence_start[0] += 1
                         sequence_end = [sequence_start[0] + length -1 , sequence_start[1] + length - 1]
                         
                     elif is_bounded(board,sequence_end[0], sequence_end[1], length, d_y, d_x) == "SEMIOPEN":
-                        print ("It's a Semiopen Sequence ")
+                        #"It's a Semiopen Sequence "
                         semi_open_seq_count += 1
                         sequence_start[1] += 1
                         sequence_start[0] += 1
                         sequence_end = [sequence_start[0] + length -1 , sequence_start[1] + length - 1]
                         
                     elif is_bounded(board, sequence_end[0], sequence_end[1], length, d_y, d_x) == "CLOSED":
-                        print ("It's a Closed Sequence")
+                        #"It's a Closed Sequence"
                         sequence_start[1] += 1
                         sequence_start[0] += 1
                         sequence_end = [sequence_start[0] + length -1 , sequence_start[1] + length - 1]
                         
                         
                     elif is_bounded(board,sequence_end[0],sequence_end[1], length, d_y, d_x) == "INVALID":
-                        print("It's an Invalid Sequence")
+                        #"It's an Invalid Sequence"
                         sequence_start[1] += 1
                         sequence_start[0] += 1
                         sequence_end = [sequence_start[0] + length -1 , sequence_start[1] + length - 1]
@@ -397,20 +406,20 @@ def detect_row(board, col, y_start, x_start, length, d_y, d_x):
                     print("This is the direction[y][x]:-",(d_y, d_x))
                     """
                     if is_bounded(board,sequence_end[0], (len(new_board_array[0])-1) - sequence_end[1] , length, d_y, d_x) == "OPEN":
-                        print("It's an Open Sequence")
+                        #"It's an Open Sequence"
                         open_seq_count += 1
                         break
                     elif is_bounded(board,sequence_end[0], (len(new_board_array[0])-1) - sequence_end[1], length, d_y, d_x) == "SEMIOPEN":
-                        print ("It's a Seemiopen Sequence ")
+                        #"It's a Seemiopen Sequence "
                         semi_open_seq_count += 1
                         break 
                         
                     elif is_bounded(board, sequence_end[0], (len(new_board_array[0])-1) - sequence_end[1], length, d_y, d_x) == "CLOSED":
-                        print ("It's a Closed Sequence")
+                        #"It's a Closed Sequence"
                         break
                         
                     elif is_bounded(board,sequence_end[0],(len(new_board_array[0])-1) - sequence_end[1], length, d_y, d_x) == "INVALID":
-                        print("It's an Invalid Sequence")
+                        #"It's an Invalid Sequence"
                         break 
     
                     
@@ -424,28 +433,28 @@ def detect_row(board, col, y_start, x_start, length, d_y, d_x):
                      
                 else:
                     if is_bounded(board,sequence_end[0],(len(new_board_array[0])-1) - sequence_end[1], length, d_y, d_x) == "OPEN":
-                        print("It's an Open Sequence")
+                        #"It's an Open Sequence"
                         open_seq_count += 1
                         sequence_start[1] += 1
                         sequence_start[0] += 1
                         sequence_end = [sequence_start[0] + length -1 , sequence_start[1] + length - 1]
                         
                     elif is_bounded(board,sequence_end[0], (len(new_board_array[0])-1) - sequence_end[1], length, d_y, d_x) == "SEMIOPEN":
-                        print ("It's a Semiopen Sequence ")
+                        #"It's a Semiopen Sequence "
                         semi_open_seq_count += 1
                         sequence_start[1] += 1
                         sequence_start[0] += 1
                         sequence_end = [sequence_start[0] + length -1 , sequence_start[1] + length - 1]
                         
                     elif is_bounded(board, sequence_end[0], (len(new_board_array[0])-1) - sequence_end[1], length, d_y, d_x) == "CLOSED":
-                        print ("It's a Closed Sequence")
+                        #"It's a Closed Sequence"
                         sequence_start[1] += 1
                         sequence_start[0] += 1
                         sequence_end = [sequence_start[0] + length -1 , sequence_start[1] + length - 1]
                         
                         
                     elif is_bounded(board,sequence_end[0],(len(new_board_array[0])-1) - sequence_end[1], length, d_y, d_x) == "INVALID":
-                        print("It's an Invalid Sequence")
+                        #"It's an Invalid Sequence"
                         sequence_start[1] += 1
                         sequence_start[0] += 1
                         sequence_end = [sequence_start[0] + length -1 , sequence_start[1] + length - 1]
@@ -490,6 +499,23 @@ def detect_rows(board, col, length):
     return open_seq_count, semi_open_seq_count
     
 def search_max(board):
+    running_score = 0 
+    max_tuple = () 
+    for i in range (8):
+        for j in range (8):
+            if board [i][j] == " ":
+                board[i][j] = "b"
+                if (score(board) >= running_score):
+                    running_score = score(board)
+                    max_tuple = (i,j)
+                    board[i][j]= " "#Removes the content
+                else: 
+                    board[i][j]= " "#Removes the content
+            else:
+                continue 
+            
+    move_y = max_tuple[0]
+    move_x = max_tuple[1]            
     return move_y, move_x
     
 def score(board): ####Don't Modify 
@@ -522,6 +548,11 @@ def score(board): ####Don't Modify
 
     
 def is_win(board):
+    
+#This function determines the current status of the game, and returns one of
+#["White won", "Black won", "Draw", "Continue playing"],  depending on the current status
+#on the board. The only situation where "Draw" is returned is when board is full.
+
     pass
 
 
@@ -596,7 +627,8 @@ def play_gomoku(board_size): # Don't Modify
         
         #test_is_empty()
         #test_is_bounded()
-        test_detect_rows()
+        #test_detect_rows()
+        test_search_max()
         print("Your move:")
         move_y = int(input("y coord: "))
         move_x = int(input("x coord: "))
@@ -703,34 +735,13 @@ def test_detect_row():
 
 def test_detect_rows():
     board = make_empty_board(8)
-    
-    x = 3 ; y = 1 ; d_x = -1 ; d_y = 1 ; length = 3
-    put_seq_on_board(board, y, x, d_y, d_x, length, "w")
-    
-    x = 0 ; y = 4 ; d_x = -1 ; d_y = 1 ; length = 1
-    put_seq_on_board(board, y, x, d_y, d_x, length, "b")
-    
-    x = 5 ; y = 1 ; d_x = -1 ; d_y = 1 ; length = 2
-    put_seq_on_board(board, y, x, d_y, d_x, length, "b")
-    
-    x = 2 ; y = 4 ; d_x = -1 ; d_y = 1 ; length = 3
-    put_seq_on_board(board, y, x, d_y, d_x, length, "w")
-    
-    x = 7 ; y = 0 ; d_x = -1 ; d_y = 1 ; length = 2
-    put_seq_on_board(board, y, x, d_y, d_x, length, "b")
-    
-    x = 4 ; y = 3 ; d_x = -1 ; d_y = 1 ; length = 1
-    put_seq_on_board(board, y, x, d_y, d_x, length, "w")
-    
-    x = 7 ; y = 2 ; d_x = -1 ; d_y = 1 ; length = 2
-    put_seq_on_board(board, y, x, d_y, d_x, length, "b")
-    
-    x = 5 ; y = 4 ; d_x = -1 ; d_y = 1 ; length = 3
-    put_seq_on_board(board, y, x, d_y, d_x, length, "w")
-    
+    x = 5; y = 0; d_x = 0; d_y = 1; length = 4; col = 'w'
+    put_seq_on_board(board, y, x, d_y, d_x, length, col)
+    x = 6; y = 0; d_x = 0; d_y = 1; length = 4; col = 'b'
+    put_seq_on_board(board, y, x, d_y, d_x, length, col)
     print_board(board)
     
-    if detect_rows(board, "w",3) == (0,3):
+    if detect_rows(board, "b",2) == (0,0):
         print("TEST CASE for detect_rows PASSED")
     else:
         print("TEST CASE for detect_rows FAILED")
@@ -742,6 +753,7 @@ def test_search_max():
     x = 6; y = 0; d_x = 0; d_y = 1; length = 4; col = 'b'
     put_seq_on_board(board, y, x, d_y, d_x, length, col)
     print_board(board)
+    
     if search_max(board) == (4,6):
         print("TEST CASE for search_max PASSED")
     else:
@@ -871,6 +883,6 @@ def some_tests():
 
 
   
-            
+#The Computer is Black          
 if __name__ == '__main__':
     play_gomoku(8)
